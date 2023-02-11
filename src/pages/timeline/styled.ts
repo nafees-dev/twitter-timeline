@@ -25,4 +25,10 @@ export const MainComponent: any = styled("div")({
 export const SummaryComponent = styled("div")({
   width: "24%",
   backgroundColor: "#dee0df",
+  display: "flex",
+});
+
+export const LabelText = styled("label")({
+  fontSize: "35px",
+  padding: "10px",
 });

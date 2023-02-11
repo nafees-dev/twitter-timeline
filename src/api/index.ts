@@ -17,14 +17,12 @@ export const RequestApi = async (context: RequestApiContext): Promise<ResponseCo
       method,
     };
     if (body) fetchPayload.body = body;
-    console.log(fetchPayload)
     const result = await fetch(apiUrl, fetchPayload);
     const parsedResult = await result.json();
 
     response.data = parsedResult;
     return response;
   } catch (error: any) {
-    console.log("ERROR::",error)
     response.error = error?.data?.message || error?.message;
     return response;
   }

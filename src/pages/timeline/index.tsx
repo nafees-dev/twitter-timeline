@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { RequestApi } from "../../api";
+import { calculateSize } from "../../utils";
 import { GET_TIMELINES, LIKE_POST } from "../../api/urls";
 import CustomCard from "../../components/Card";
 import { IPost } from "../../interface/timeline.interface";
-import { MainComponent, Wrapper, SideBarComponent, SummaryComponent } from "./styled";
+import { MainComponent, Wrapper, SideBarComponent, SummaryComponent, LabelText } from "./styled";
 import InfiniteScroll from "react-infinite-scroller";
 import Loader from "../../components/Loader";
 
@@ -13,6 +14,7 @@ const TwitterTimeline = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalMBs, setTotalMBs] = useState(0);
   const listInnerRef = useRef();
 
   useEffect(() => {
@@ -27,9 +29,15 @@ const TwitterTimeline = () => {
     if (result.error) return;
 
     const totalPages = result.data.totalPages;
+    dataSize([...postList, ...result.data.data]);
     setTotalPages(totalPages);
     setPostList([...postList, ...result.data.data]);
     setLoading(false);
+  };
+
+  const dataSize = (data: Array<any>) => {
+    const calMBs = calculateSize(data);
+    setTotalMBs(calMBs);
   };
 
   // It's returning the 404 on request, I have reported this issue over email
@@ -57,7 +65,7 @@ const TwitterTimeline = () => {
     },
     [loading, postList, totalPages]
   );
-  
+
   /* 
     NOTE:
       The Sidebar componenet and Summary component would be in layout page, but I have to implement just timeline 
@@ -68,7 +76,7 @@ const TwitterTimeline = () => {
       <Wrapper>
         <SideBarComponent />
         <MainComponent ref={listInnerRef}>
-          <InfiniteScroll initialLoad={false} pageStart={0} loadMore={onLoadMore} threshold={10} hasMore={hasMore && !loading} loader={<Loader />} useWindow={false}>
+          <InfiniteScroll initialLoad={false} pageStart={0} loadMore={onLoadMore} threshold={250} hasMore={hasMore && !loading} loader={<Loader />} useWindow={false}>
             {postList.map((item, index) => (
               <React.Fragment key={index}>
                 <CustomCard key={index} postData={item} />
@@ -76,7 +84,11 @@ const TwitterTimeline = () => {
             ))}
           </InfiniteScroll>
         </MainComponent>
-        <SummaryComponent />
+
+        <SummaryComponent>
+          <LabelText>Total Size: {totalMBs} MB</LabelText>
+          <LabelText>Total Post: {postList.length} Post</LabelText>
+        </SummaryComponent>
       </Wrapper>
     </>
   );

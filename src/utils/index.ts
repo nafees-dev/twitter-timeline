@@ -22,3 +22,31 @@ export function timeElapsed(date1: any) {
     return `${years} years ago`;
   }
 }
+
+export function calculateSize(array: Array<any>) {
+  let size = 0;
+  for (let i = 0; i < array.length; i++) {
+    let objectSize = 0;
+    for (let key in array[i]) {
+      if (array[i].hasOwnProperty(key)) {
+        objectSize += key.length * 2;
+        let value = array[i][key];
+        switch (typeof value) {
+          case "string":
+            objectSize += value.length * 2;
+            break;
+          case "number":
+            objectSize += 8;
+            break;
+          case "boolean":
+            objectSize += 4;
+            break;
+        }
+      }
+    }
+    size += objectSize;
+  }
+  size = size / (1024 * 1024);
+  let newsize = size.toFixed(3);
+  return Number(newsize);
+}
