@@ -20,16 +20,17 @@ interface PropsType {
 export default function CustomCard(props: PropsType) {
   const { postData } = props;
 
+  // This Function will call when profile image is not available
   const onErrorImg = (e: any) => {
     const currentTarget = e.currentTarget;
     currentTarget.onerror = null; // prevents looping
-    currentTarget.src = "http://via.placeholder.com/640x360";
+    currentTarget.src = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
   };
 
   return (
     <Card sx={{ maxWidth: "100%" }} key={postData.id}>
       <CardHeader
-        avatar={<AvatarComponent aria-label="recipe" alt="" src={postData.user.profile_image_url} />}
+        avatar={<AvatarComponent aria-label="recipe" alt="" onError={onErrorImg} src={postData.user.profile_image_url} />}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />

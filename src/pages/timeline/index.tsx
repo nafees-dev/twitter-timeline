@@ -30,9 +30,9 @@ const TwitterTimeline = () => {
     setTotalPages(totalPages);
     setPostList([...postList, ...result.data.data]);
     setLoading(false);
-    getLikes(result.data.data);
   };
 
+  // It's returning the 404 on request, I have reported this issue over email
   const getLikes = async (data: any = []) => {
     if (data.length === 0) return null;
     LIKE_POST.body = {
@@ -45,7 +45,6 @@ const TwitterTimeline = () => {
   const onLoadMore = useCallback(
     async (page: any) => {
       page = page + 1;
-      console.log("currentPage", page);
 
       if (loading) return;
 
@@ -58,7 +57,12 @@ const TwitterTimeline = () => {
     },
     [loading, postList, totalPages]
   );
-
+  
+  /* 
+    NOTE:
+      The Sidebar componenet and Summary component would be in layout page, but I have to implement just timeline 
+      that's why I placed it here.
+  */
   return (
     <>
       <Wrapper>
