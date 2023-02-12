@@ -12,11 +12,15 @@ export const RequestApi = async (context: RequestApiContext): Promise<ResponseCo
     if (params) apiUrl = `${apiUrl}${params}`;
     if (queryParams) apiUrl = `${apiUrl}${queryParams}`;
 
+    // create fetch payload
     const fetchPayload: any = {
       headers: { authorization: TOKEN },
       method,
     };
+
+    // If body is exist then add body in fetch payload
     if (body) fetchPayload.body = body;
+    
     const result = await fetch(apiUrl, fetchPayload);
     const parsedResult = await result.json();
 

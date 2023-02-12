@@ -1,10 +1,9 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatIcon from "@mui/icons-material/MapsUgcRounded";
@@ -15,16 +14,26 @@ import { timeElapsed } from "../../utils";
 
 interface PropsType {
   postData: IPost;
+  onLikeAndUnlikePost: (post_id: string, index: number) => void;
+  index: number;
+  likedPost: Array<string>;
 }
 
 export default function CustomCard(props: PropsType) {
-  const { postData } = props;
+  const { postData, likedPost, index, onLikeAndUnlikePost } = props;
 
   // This Function will call when profile image is not available
   const onErrorImg = (e: any) => {
     const currentTarget = e.currentTarget;
     currentTarget.onerror = null; // prevents looping
     currentTarget.src = "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+  };
+
+  const likeIconStyle = () => {
+    if (likedPost.includes(postData.id)) {
+      return "error";
+    }
+    return "default";
   };
 
   return (
@@ -47,7 +56,7 @@ export default function CustomCard(props: PropsType) {
       </CardContent>
 
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton color={likeIconStyle()} onClick={() => onLikeAndUnlikePost(postData.id, index)} aria-label="add to favorites">
           <FavoriteIcon />
           &nbsp; <MuteText>{postData.likes_count}</MuteText>
         </IconButton>
