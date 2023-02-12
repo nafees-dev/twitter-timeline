@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/twitter-timeline/static/css/main.e6c13ad2.css",
-    "main.js": "/twitter-timeline/static/js/main.ae3b1739.js",
+    "main.js": "/twitter-timeline/static/js/main.d33fea4e.js",
     "static/js/787.bf06af21.chunk.js": "/twitter-timeline/static/js/787.bf06af21.chunk.js",
     "index.html": "/twitter-timeline/index.html",
     "main.e6c13ad2.css.map": "/twitter-timeline/static/css/main.e6c13ad2.css.map",
-    "main.ae3b1739.js.map": "/twitter-timeline/static/js/main.ae3b1739.js.map",
+    "main.d33fea4e.js.map": "/twitter-timeline/static/js/main.d33fea4e.js.map",
     "787.bf06af21.chunk.js.map": "/twitter-timeline/static/js/787.bf06af21.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.ae3b1739.js"
+    "static/js/main.d33fea4e.js"
   ]
 }
