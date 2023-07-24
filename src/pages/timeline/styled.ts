@@ -7,7 +7,7 @@ export const Wrapper = styled("div")({
 });
 
 export const SideBarComponent = styled("div")({
-  width: "23.5%",
+  width: "24%",
   backgroundColor: "#dee0df",
 });
 
